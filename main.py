@@ -23,30 +23,41 @@ while True:
     if choice == '1':  # создать папку
         dir_name = input("Введите имя новой папки: ")
         os.mkdir(dir_name)
+
     elif choice == '2':
         print('2')
+
     elif choice == '3':
         print('3')
+
     elif choice == '4':  # просмотр содержимого рабочей директории
         print(os.listdir(path='.'))
+
     elif choice == '5':  # посмотреть только папки
         dirs_view = [d for d in os.listdir('.') if os.path.isdir(d)]
         print(dirs_view)
+
     elif choice == '6':  # посмотреть только файлы
         files_view = [f for f in os.listdir('.') if os.path.isfile(f)]
         print(files_view)
+
     elif choice == '7':  # просмотр информации об операционной системе
         print(f' Операционная система: {os.name}')
+
     elif choice == '8':  # создатель программы
         print('**************************************')
         print('*   Пушкин Александр Сергеевич  (c)  *')
         print('**************************************')
-    elif choice == '9':  # играть в викторину "День рождение русских писателей"
+
+    elif choice == '9':  # играть в викторину "День рождения русских писателей"
         quiz()
+
     elif choice == '10':
         print('10')
+
     elif choice == '11':
         print('11')
+
     elif choice == '12':  # выход
         print('До новых встреч')
         break
