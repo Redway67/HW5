@@ -1,4 +1,6 @@
 import os
+import shutil
+
 from victory import quiz
 
 while True:
@@ -24,17 +26,26 @@ while True:
         dir_name = input("Введите имя новой папки: ")
         os.mkdir(dir_name)
 
-    elif choice == '2': # удаление файла/папки (без обработки ошибок)
+    elif choice == '2':  # удаление файла/папки (без обработки ошибок)
         del_name = input('Введите имя удаляемого файла или папки:')
-        if os.path.isdir(del_name):
+        if os.path.isdir(del_name):  # удаляем папку
             os.rmdir(del_name)
-        elif os.path.isfile(del_name):
+        elif os.path.isfile(del_name):  # удаляем файл
             os.remove(del_name)
         else:
             print('Неизвестное имя')
 
-    elif choice == '3':
-        print('3')
+    elif choice == '3':  # копирование файла/папки (без обработки ошибок)
+        src_name = input('Введите что копируем:')
+        src_name = os.path.join(os.getcwd(), src_name)
+        dst_name = input('Введите куда копируем:')
+        dst_name = os.path.join(os.getcwd(), dst_name)
+        if os.path.isfile(src_name):  # копируем файл
+            shutil.copy(src_name, dst_name)
+        elif os.path.isdir(src_name):  # копируем папку
+            shutil.copytree(src_name, dst_name)
+        else:
+            print('Неизвестное имя')
 
     elif choice == '4':  # просмотр содержимого рабочей директории
         print(os.listdir(path='.'))
