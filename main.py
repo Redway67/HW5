@@ -2,6 +2,7 @@ import os
 import shutil
 
 from victory import quiz
+from account import my_account
 
 while True:
     print("""
@@ -22,6 +23,7 @@ while True:
      12. выход 
      """)
     choice = input('>')
+
     if choice == '1':  # создать папку
         dir_name = input("Введите имя новой папки: ")
         os.mkdir(dir_name)
@@ -69,8 +71,8 @@ while True:
     elif choice == '9':  # играть в викторину "День рождения русских писателей"
         quiz()
 
-    elif choice == '10':
-        print('10')
+    elif choice == '10':  # мой банковский счет
+        my_account()
 
     elif choice == '11':  # смена рабочей директории (без обработки ошибок)
         print(f'{os.getcwd()}>')
