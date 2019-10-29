@@ -2,6 +2,7 @@ import os
 import shutil
 
 from victory import quiz
+from account import my_account
 
 while True:
     print("""
@@ -70,7 +71,7 @@ while True:
         quiz()
 
     elif choice == '10':
-        print('10')
+        my_account()
 
     elif choice == '11':  # смена рабочей директории (без обработки ошибок)
         print(f'{os.getcwd()}>')
