@@ -72,8 +72,11 @@ while True:
     elif choice == '10':
         print('10')
 
-    elif choice == '11':
-        print('11')
+    elif choice == '11':  # смена рабочей директории (без обработки ошибок)
+        print(f'{os.getcwd()}>')
+        new_dir = input('Папка перехода: ')
+        os.chdir(new_dir)
+        print(f'{os.getcwd()}>')
 
     elif choice == '12':  # выход
         print('До новых встреч')
