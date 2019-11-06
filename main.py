@@ -3,6 +3,16 @@ import shutil
 
 from victory import quiz
 
+
+def author():
+    return 'Пушкин Александр Сергеевич  (c)'
+
+
+def show_files():
+    f_view = [f for f in os.listdir('.') if os.path.isfile(f)]
+    return f_view
+
+
 while True:
     print("""
     ____________________
