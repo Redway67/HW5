@@ -2,6 +2,7 @@ import os
 import shutil
 
 from victory import quiz
+from account import my_account
 
 
 def author():
@@ -74,14 +75,14 @@ if __name__ == '__main__':
 
         elif choice == '8':  # создатель программы
             print('**************************************')
-            print('*   Пушкин Александр Сергеевич  (c)  *')
+            print(f'*   {author()}  *')
             print('**************************************')
 
         elif choice == '9':  # играть в викторину "День рождения русских писателей"
             quiz()
 
         elif choice == '10':
-            print('10')
+            my_account()
 
         elif choice == '11':  # смена рабочей директории (без обработки ошибок)
             print(f'{os.getcwd()}>')
