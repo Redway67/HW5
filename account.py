@@ -7,12 +7,12 @@
 purchases = {}
 
 
-def first_choice():
+def add_money():
     add_sum = int(input('Ввести сумму на сколько пополнить счет:'))
     return add_sum
 
 
-def second_choice(sum_account):
+def buying(sum_account):
     sum_purchase = int(input('Ввести сумму покупки:'))
     if sum_purchase <= sum_account:
         purchase = input('Ввести название покупки:')
@@ -23,7 +23,7 @@ def second_choice(sum_account):
     return sum_purchase
 
 
-def third_choice():
+def history():
     if bool(purchases):
         print('   ПОКУПКИ:')
         for key in purchases:
@@ -44,11 +44,11 @@ def my_account():
         print('4. выход')
         choice = input('Выберите пункт меню')
         if choice == '1':
-            total += first_choice()
+            total += add_money()
         elif choice == '2':
-            total -= second_choice(total)
+            total -= buying(total)
         elif choice == '3':
-            third_choice()
+            history()
         elif choice == '4':
             break
         else:
