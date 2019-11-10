@@ -4,6 +4,8 @@ import shutil
 from victory import quiz
 from account import my_account
 
+FILE_LISTDIR = 'listdir.txt'
+
 
 def author():
     return 'Пушкин Александр Сергеевич  (c)'
@@ -24,14 +26,15 @@ if __name__ == '__main__':
          2.  удалить (файл/папку)
          3.  копировать (файл/папку) 
          4.  просмотр содержимого рабочей директории 
-         5.  посмотреть только папки 
-         6.  посмотреть только файлы  
-         7.  просмотр информации об операционной системе 
-         8.  создатель программы 
-         9.  играть в викторину "День рождение русских писателей"
-         10. мой банковский счет 
-         11. смена рабочей директории
-         12. выход 
+         5.  сохранить содержимое рабочей директории в файл
+         6.  посмотреть только папки 
+         7.  посмотреть только файлы  
+         8.  просмотр информации об операционной системе 
+         9.  создатель программы 
+         10. играть в викторину "День рождение русских писателей"
+         11. Банковский счет 
+         12. смена рабочей директории
+         13. выход 
          """)
         choice = input('>')
         if choice == '1':  # создать папку
@@ -62,35 +65,42 @@ if __name__ == '__main__':
         elif choice == '4':  # просмотр содержимого рабочей директории
             print(os.listdir(path='.'))
 
-        elif choice == '5':  # посмотреть только папки
+        elif choice == '5':  # сохранить содержимое рабочей директории в файл
+            with open(FILE_LISTDIR, 'w', encoding='UTF-8') as f:
+                file_names = ', '.join([ff for ff in os.listdir('.') if os.path.isfile(ff)])
+                f.write(f'files: {file_names} \n')
+                dir_names = ', '.join([ff for ff in os.listdir('.') if os.path.isdir(ff)])
+                f.write(f'dirs : {dir_names}')
+
+        elif choice == '6':  # посмотреть только папки
             dirs_view = [d for d in os.listdir('.') if os.path.isdir(d)]
             print(dirs_view)
 
-        elif choice == '6':  # посмотреть только файлы
+        elif choice == '7':  # посмотреть только файлы
             files_view = [f for f in os.listdir('.') if os.path.isfile(f)]
             print(files_view)
 
-        elif choice == '7':  # просмотр информации об операционной системе
+        elif choice == '8':  # просмотр информации об операционной системе
             print(f' Операционная система: {os.name}')
 
-        elif choice == '8':  # создатель программы
+        elif choice == '9':  # создатель программы
             print('**************************************')
             print(f'*   {author()}  *')
             print('**************************************')
 
-        elif choice == '9':  # играть в викторину "День рождения русских писателей"
+        elif choice == '10':  # играть в викторину "День рождения русских писателей"
             quiz()
 
-        elif choice == '10':
+        elif choice == '11':
             my_account()
 
-        elif choice == '11':  # смена рабочей директории (без обработки ошибок)
+        elif choice == '12':  # смена рабочей директории (без обработки ошибок)
             print(f'{os.getcwd()}>')
             new_dir = input('Папка перехода: ')
             os.chdir(new_dir)
             print(f'{os.getcwd()}>')
 
-        elif choice == '12':  # выход
+        elif choice == '13':  # выход
             print('До новых встреч')
             break
         else:
