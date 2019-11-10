@@ -4,7 +4,13 @@
 Фунция my_account()
 Запускает операции по счету
 """
-purchases = {}
+import os
+import pickle
+import json
+
+FILE_TOTAL = 'total.dat'
+FILE_PURCHASES = 'purchases.json'
+
 
 
 def add_money():
@@ -12,7 +18,7 @@ def add_money():
     return add_sum
 
 
-def buying(sum_account):
+def buying(sum_account, purchases):
     sum_purchase = int(input('Ввести сумму покупки:'))
     if sum_purchase <= sum_account:
         purchase = input('Ввести название покупки:')
@@ -23,7 +29,7 @@ def buying(sum_account):
     return sum_purchase
 
 
-def history():
+def history(purchases):
     if bool(purchases):
         print('   ПОКУПКИ:')
         for key in purchases:
@@ -34,7 +40,19 @@ def history():
 
 
 def my_account():
-    total = 0
+    # инициализируем total из файла
+    if os.path.exists(FILE_TOTAL):
+        with open(FILE_TOTAL, 'rb') as f:
+            total = pickle.load(f)
+    else:
+        total = 0
+
+    # инициализируем покупки
+    if os.path.exists(FILE_PURCHASES):
+        with open(FILE_PURCHASES, 'r', encoding='UTF-8') as fj:
+            purchases = json.load(fj)
+    else:
+        purchases = {}
 
     while True:
         print(f'   НА СЧЕТУ: {total} р.')
@@ -46,11 +64,20 @@ def my_account():
         if choice == '1':
             total += add_money()
         elif choice == '2':
-            total -= buying(total)
+            total -= buying(total, purchases)
         elif choice == '3':
-            history()
+            history(purchases)
         elif choice == '4':
             break
         else:
             print('Неверный пункт меню')
+
+    # сохраняем total в файл
+    with open(FILE_TOTAL, 'wb') as f:
+        pickle.dump(total, f)
+
+    # сохраняем покупки
+    with open(FILE_PURCHASES, 'w', encoding='UTF-8') as fj:
+        json.dump(purchases, fj)
+
     return
