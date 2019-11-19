@@ -39,6 +39,7 @@ def quiz():
                 ok += 1
                 print('  Верно!')
             else:
+                # генератор
                 birth_data = [int(j) for j in writer_day.split('.')]  # индекс 0 - день, 1 - месяц, 2 - год.
                 print('  Ответ неверный!')
                 print(
