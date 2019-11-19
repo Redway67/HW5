@@ -12,6 +12,7 @@ def author():
 
 
 def show_files():
+    # генератор
     f_view = [f for f in os.listdir('.') if os.path.isfile(f)]
     return f_view
 
