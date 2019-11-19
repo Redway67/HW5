@@ -12,20 +12,34 @@ FILE_TOTAL = 'total.dat'
 FILE_PURCHASES = 'purchases.json'
 
 
-
 def add_money():
-    add_sum = int(input('Ввести сумму на сколько пополнить счет:'))
+    add_sum = 0
+    try:
+        add_sum = int(input('Ввести сумму на сколько пополнить счет:'))
+    except ValueError:
+        # Этот блок срабатывает если было исключение
+        print('Вы ввели не число')
+        print('Введите верное число')
     return add_sum
 
 
 def buying(sum_account, purchases):
-    sum_purchase = int(input('Ввести сумму покупки:'))
-    if sum_purchase <= sum_account:
-        purchase = input('Ввести название покупки:')
-        purchases[purchase] = sum_purchase
+    sum_purchase = 0
+    try:
+        sum_purchase = int(input('Ввести сумму покупки:'))
+    except ValueError:
+        # Этот блок срабатывает если было исключение
+        print('Вы ввели не число')
+        print('Введите верное число')
     else:
-        print('   НЕДОСТАТОЧНО СРЕДСТВ НА СЧЕТЕ!!!')
-        sum_purchase = 0
+        # Выполняется, когда нету ошибок
+        if sum_purchase <= sum_account:
+            purchase = input('Ввести название покупки:')
+            purchases[purchase] = sum_purchase
+        else:
+            print('   НЕДОСТАТОЧНО СРЕДСТВ НА СЧЕТЕ!!!')
+            sum_purchase = 0
+
     return sum_purchase
 
 

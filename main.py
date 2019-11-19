@@ -1,5 +1,7 @@
 import os
 import shutil
+import random
+import errno
 
 from victory import quiz
 from account import my_account
@@ -7,8 +9,31 @@ from account import my_account
 FILE_LISTDIR = 'listdir.txt'
 
 
+# декоратор
+def frame(func):
+    def inner(*args, **kwargs):
+        print('*' * 39)
+        result = func(*args, **kwargs)
+        print('*' * 39)
+        return result
+
+    return inner
+
+
+@frame
 def author():
-    return 'Пушкин Александр Сергеевич  (c)'
+    # тернарный оператор
+    author_name = 'Пушкин Александр Сергеевич  (c)' if random.random() > 0.5 else 'Лермонтов Михаил Юрьевич    (с)'
+    print(f'*   {author_name}  *')
+    return
+
+
+@frame
+def bye_bye():
+    # тернарный оператор
+    good_bye = '     GOOD BYE!!                ' if random.random() > 0.5 else '        ДОСВИДАНИЯ!!           '
+    print(f'*   {good_bye}  *')
+    return
 
 
 def show_files():
@@ -40,9 +65,13 @@ if __name__ == '__main__':
         choice = input('>')
         if choice == '1':  # создать папку
             dir_name = input("Введите имя новой папки: ")
-            os.mkdir(dir_name)
+            # обрабатываем ошибку
+            try:
+                os.mkdir(dir_name)
+            except OSError as exc:
+                print(f' Ошибка!!!  {exc}')
 
-        elif choice == '2':  # удаление файла/папки (без обработки ошибок)
+        elif choice == '2':  # удаление файла/папки
             del_name = input('Введите имя удаляемого файла или папки:')
             if os.path.isdir(del_name):  # удаляем папку
                 os.rmdir(del_name)
@@ -51,7 +80,7 @@ if __name__ == '__main__':
             else:
                 print('Неизвестное имя')
 
-        elif choice == '3':  # копирование файла/папки (без обработки ошибок)
+        elif choice == '3':  # копирование файла/папки
             src_name = input('Введите что копируем:')
             src_name = os.path.join(os.getcwd(), src_name)
             dst_name = input('Введите куда копируем:')
@@ -74,10 +103,12 @@ if __name__ == '__main__':
                 f.write(f'dirs : {dir_names}')
 
         elif choice == '6':  # посмотреть только папки
+            # генератор
             dirs_view = [d for d in os.listdir('.') if os.path.isdir(d)]
             print(dirs_view)
 
         elif choice == '7':  # посмотреть только файлы
+            # генератор
             files_view = [f for f in os.listdir('.') if os.path.isfile(f)]
             print(files_view)
 
@@ -85,9 +116,7 @@ if __name__ == '__main__':
             print(f' Операционная система: {os.name}')
 
         elif choice == '9':  # создатель программы
-            print('**************************************')
-            print(f'*   {author()}  *')
-            print('**************************************')
+            author()
 
         elif choice == '10':  # играть в викторину "День рождения русских писателей"
             quiz()
@@ -95,14 +124,14 @@ if __name__ == '__main__':
         elif choice == '11':
             my_account()
 
-        elif choice == '12':  # смена рабочей директории (без обработки ошибок)
+        elif choice == '12':  # смена рабочей директории
             print(f'{os.getcwd()}>')
             new_dir = input('Папка перехода: ')
             os.chdir(new_dir)
             print(f'{os.getcwd()}>')
 
         elif choice == '13':  # выход
-            print('До новых встреч')
+            bye_bye()
             break
         else:
             print('Неверный пункт меню')
